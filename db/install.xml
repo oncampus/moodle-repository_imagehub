@@ -8,6 +8,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="title" TYPE="char" LENGTH="1333" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="char" LENGTH="1333" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="source" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
         <FIELD NAME="fileid" TYPE="int" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>

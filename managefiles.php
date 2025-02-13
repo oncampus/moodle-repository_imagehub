@@ -30,7 +30,7 @@ require_login();
 
 $sourceid = required_param('sourceid', PARAM_INT);
 
-$url = new moodle_url('/repository/imagehub/managefiles.php', []);
+$url = new moodle_url('/repository/imagehub/managefiles.php', ['sourceid' => $sourceid]);
 $PAGE->set_url($url);
 $PAGE->set_context(context_system::instance());
 

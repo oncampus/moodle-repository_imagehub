@@ -130,7 +130,11 @@ class repository_imagehub extends repository {
         $params = [];
         if (!empty($search)) {
             $where = $DB->sql_like('title', ':search', false, false);
-            $params = ['search' => '%' . $DB->sql_like_escape($search) . '%'];
+            $where .= ' OR ' . $DB->sql_like('description', ':search2', false, false);
+            $params = [
+                'search' => '%' . $DB->sql_like_escape($search) . '%',
+                'search2' => '%' . $DB->sql_like_escape($search) . '%',
+            ];
         }
         $results = $DB->get_records_select('repository_imagehub', $where, $params, '', 'fileid, title');
         foreach ($files as $file) {
@@ -139,7 +143,7 @@ class repository_imagehub extends repository {
             }
             $node['thumbnail'] = $OUTPUT->image_url(file_extension_icon($file->get_filename()))->out(false);
             $filelistentry = [
-                'title' => $file->get_filename(),
+                'title' => $file->get_filename() ?? $results[$file->get_id()]->description,
                 'shorttitle' => $results[$file->get_id()]->title ?? $file->get_filename(),
                 'size' => $file->get_filesize(),
                 'filename' => $file->get_filename(),

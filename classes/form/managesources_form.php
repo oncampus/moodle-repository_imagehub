@@ -42,9 +42,6 @@ class managesources_form extends dynamic_form {
         $mform->addElement('text', 'title', get_string('sourcetitle', 'repository_imagehub'), ['size' => '100']);
         $mform->setType('title', PARAM_TEXT);
 
-        $mform->addElement('text', 'url', get_string('sourceurl', 'repository_imagehub'), ['size' => '1333']);
-        $mform->setType('title', PARAM_URL);
-
         $options = [
             \repository_imagehub::SOURCE_TYPE_MANUAL,
             \repository_imagehub::SOURCE_TYPE_ZIP,

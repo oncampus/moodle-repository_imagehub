@@ -86,6 +86,7 @@ class manager {
         $recordid = $DB->insert_record('repository_imagehub', [
             'fileid' => $newfile->get_id(),
             'source' => $sourceid,
+            'description' => join(',', $metadata['tags']),
         ]);
 
         foreach ($metadata['tags'] as $tag) {
@@ -130,6 +131,7 @@ class manager {
             $DB->update_record('repository_imagehub', [
                 'id' => $itemid,
                 'title' => $metadata['title'],
+                'description' => join(',', $metadata['tags']),
             ]);
         }
         if (isset($metadata['tags'])) {
