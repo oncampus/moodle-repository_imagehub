@@ -16,6 +16,7 @@
 
 namespace repository_imagehub\form;
 
+use context_system;
 use moodleform;
 
 /**
@@ -57,16 +58,29 @@ class managefiles_form extends moodleform {
      * @return void
      */
     public function data_preprocessing(&$defaultvalues): void {
+        $context = context_system::instance();
         $draftitemid = file_get_submitted_draft_itemid('files');
 
-        file_prepare_draft_area(
+        $fs = get_file_storage();
+        $existingdraftfiles = $fs->get_area_files(
+            $context->id,
+            'user',
+            'draft',
             $draftitemid,
-            \context_system::instance()->id,
-            'repository_imagehub',
-            'images',
-            $this->sourceid,
-            ['subdirs' => 1]
+            'id',
+            false
         );
-        $defaultvalues['files'] = $draftitemid;
+
+        if (count($existingdraftfiles) === 0) {
+            file_prepare_draft_area(
+                $draftitemid,
+                context_system::instance()->id,
+                'repository_imagehub',
+                'images',
+                $this->sourceid,
+                ['subdirs' => 1]
+            );
+            $defaultvalues['files'] = $draftitemid;
+        }
     }
 }

@@ -56,13 +56,16 @@ class managefiles_zip_form extends moodleform {
      */
     public function data_preprocessing(&$defaultvalues): void {
         $draftitemid = file_get_submitted_draft_itemid('files');
+        $sourceid = $defaults['sourceid'] ?? 0;
+
+        $sysctx = \context_system::instance();
 
         file_prepare_draft_area(
             $draftitemid,
-            CONTEXT_SYSTEM,
+            $sysctx->id,
             'repository_imagehub',
             'images',
-            0,
+            $sourceid,
             ['subdirs' => 1, 'maxfiles' => -1]
         );
         $defaultvalues['files'] = $draftitemid;

@@ -37,6 +37,7 @@ function xmldb_repository_imagehub_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2025021300) {
+        $sysctx = \context_system::instance();
 
         // Define field description to be added to repository_imagehub.
         $table = new xmldb_table('repository_imagehub');
@@ -50,6 +51,5 @@ function xmldb_repository_imagehub_upgrade($oldversion) {
         // Imagehub savepoint reached.
         upgrade_plugin_savepoint(true, 2025021300, 'repository', 'imagehub');
     }
-
     return true;
 }
